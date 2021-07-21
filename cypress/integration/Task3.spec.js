@@ -6,7 +6,7 @@ describe('Register and Login functionality', () => {
       cy.visit('https://automationteststore.com/')
     })
 
-    it('Search an Item', ()=>{
+    it.skip('Search an Item', ()=>{
         //Search
         cy.get('#filter_keyword').type(search).type('{enter}')
         //Add item
@@ -29,13 +29,28 @@ describe('Register and Login functionality', () => {
         cy.get('#maincontainer > div > div > div > div > div:nth-child(1) > table > tbody > tr > td:nth-child(1) > br:nth-child(2)')
         .should(($el) => {
             const orderid = $el.text()
-            expect(orderid).to.not.include('#')
         })
         cy.log(orderid) // Object{5}
         //email = cy.get('#maincontainer > div > div > div > div > div:nth-child(1) > table > tbody > tr > td:nth-child(1) > br:nth-child(10)').text()
         cy.log(email)
     })
 
+    it('Brand selection and sorting', ()=>{
+        cy.get('#brandcarousal > li:nth-child(1) > div.image > a > img').click()
+        cy.get('#sort').select('p.price-ASC')
+        cy.get(':nth-child(1) > .fixed_wrapper > .fixed > .prdocutname').contains('BeneFit Girl Meets Pearl')
+        cy.get(':nth-child(2) > .fixed_wrapper > .fixed > .prdocutname').contains('Benefit Bella Bamba')
+        cy.get(':nth-child(3) > .fixed_wrapper > .fixed > .prdocutname').contains('Product with stock locations')
+        
+    })
+
+    it('Checking Out of stock items', () =>{
+        cy.get('#categorymenu > nav > ul > li:nth-child(4) > div > ul:nth-child(1) > li:nth-child(5) > a').click({force:true})
+        cy.get('#maincontainer > div > div > div > div > div.thumbnails.grid.row.list-inline > div > div.fixed_wrapper > div > a')
+        .click()
+        cy.get('#product > fieldset > div:nth-child(4) > ul > li > span')
+        .contains('Out of Stock')
+    })
 })
 
 function Adddata(name, lastname, email, teleph, fax, company, address, city, zip)
