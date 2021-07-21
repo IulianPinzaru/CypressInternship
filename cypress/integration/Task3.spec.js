@@ -6,7 +6,7 @@ describe('Register and Login functionality', () => {
       cy.visit('https://automationteststore.com/')
     })
 
-    it.skip('Search an Item', ()=>{
+    it('Search an Item', ()=>{
         //Search
         cy.get('#filter_keyword').type(search).type('{enter}')
         //Add item
@@ -48,7 +48,7 @@ describe('Register and Login functionality', () => {
         cy.get('#categorymenu > nav > ul > li:nth-child(4) > div > ul:nth-child(1) > li:nth-child(5) > a').click({force:true})
         cy.get('#maincontainer > div > div > div > div > div.thumbnails.grid.row.list-inline > div > div.fixed_wrapper > div > a')
         .click()
-        cy.get('#product > fieldset > div:nth-child(4) > ul > li > span')
+        cy.get('#product > fieldset > div:nth-child(4) > ul > li > span').should('have.class', 'nostock')
         .contains('Out of Stock')
     })
 })
