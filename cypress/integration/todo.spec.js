@@ -1,4 +1,4 @@
-
+import nume from './Task2.spec.js'
 describe('Register and Login functionality', () => {
   beforeEach(() => {
     
@@ -36,6 +36,12 @@ describe('Register and Login functionality', () => {
         cy.get('#AccountFrm_newsletter1').should('have.value', '1').click()
         cy.get('#AccountFrm_agree').should('have.value', '1').click()
         cy.get('#AccountFrm > div.form-group > div > div > button').contains('Continue').click()
+
+        cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
+        .then(()=>{
+          cy.contains('This login name is not available. Try different login name!')
+        })
+
   })
 
     it('Login', () => {
@@ -46,7 +52,7 @@ describe('Register and Login functionality', () => {
       cy.get('#loginFrm_password').should('have.class', 'form-control').type('12345678')
       cy.get('#loginFrm > fieldset > button').contains('Login').click()
 
-      if(cy.get('#customer_menu_top > li > a > div').contains('Pinzaru'))
+      if(cy.get('#customer_menu_top > li > a > div').contains('Iulian'))
       {
         cy.log('Login Succesful')
       }
@@ -87,20 +93,14 @@ it('Validation for Register with invalid data. ( Ascii characters, invalid email
   cy.get('#AccountFrm > div.form-group > div > div > button').contains('Continue').click()
 
 
-  if(cy.get('.alert'))
-  {
+  
   cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
-      .contains('Login name must be alphanumeric only and between 5 and 64 characters!')
-  cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
+    .then(()=>{
+      cy.contains('Login name must be alphanumeric only and between 5 and 64 characters!')
       .contains('Email Address does not appear to be valid!')
-  }
-  else
-  {
-      cy.log('It should display an alert')
-  }
+  })
+      
   
-  
- 
   
 })
 
@@ -117,10 +117,10 @@ it('Validation for Register with invalid data. ( Ascii characters, invalid email
         cy.get('#AccountFrm > div.form-group > div > div > button').contains('Continue').click()
 
 
-        if(cy.get('.alert'))
-        {
+        
         cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
-          .contains('Login name must be alphanumeric only and between 5 and 64 characters!')
+        .then(()=>{
+          cy.contains('Login name must be alphanumeric only and between 5 and 64 characters!')
           .contains('First Name must be between 1 and 32 characters!')
           .contains('Last Name must be between 1 and 32 characters!')
           .contains('Email Address does not appear to be valid!')
@@ -129,11 +129,9 @@ it('Validation for Register with invalid data. ( Ascii characters, invalid email
           .contains('Zip/postal code must be between 3 and 10 characters!')
           .contains('Please select a region / state!')
           .contains('Password must be between 4 and 20 characters!')
-        }
-        else
-        {
-            cy.log('It should display an alert')
-        }
+        })
+          
+        
       
   })
 
@@ -173,20 +171,17 @@ it('Validation for Register with invalid data. ( Ascii characters, invalid email
         cy.get('#AccountFrm_agree').should('have.value', '1').click()
         cy.get('#AccountFrm > div.form-group > div > div > button').contains('Continue').click()
         
-        if(cy.get('.alert'))
-        {
+        
         cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
-          .contains('First Name must be between 1 and 32 characters!')
+        .then(()=>{
+          cy.contains('First Name must be between 1 and 32 characters!')
           .contains('Last Name must be between 1 and 32 characters!')
           .contains('Address 1 must be between 3 and 128 characters!')
           .contains('City must be between 3 and 128 characters!')
           .contains('Zip/postal code must be between 3 and 10 characters!')
           .contains('Password must be between 4 and 20 characters!')
-        }
-        else
-        {
-            cy.log('It should display an alert')
-        }
+        })
+
 
 
       })
@@ -225,19 +220,17 @@ it('Validation for Register with invalid data. ( Ascii characters, invalid email
         cy.get('#AccountFrm_agree').should('have.value', '1').click()
         cy.get('#AccountFrm > div.form-group > div > div > button').contains('Continue').click()
 
-        if(cy.get('.alert'))
-        {
+        
         cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
-          .contains('First Name must be between 1 and 32 characters!')
-          .contains('Last Name must be between 1 and 32 characters!')
-          .contains('Address 1 must be between 3 and 128 characters!')
-          .contains('City must be between 3 and 128 characters!')
-          .contains('Password must be between 4 and 20 characters!')
-        }
-        else
-        {
-            cy.log('It should display an alert')
-        }
+          .then(()=>{
+            cy.contains('First Name must be between 1 and 32 characters!')
+            .contains('Last Name must be between 1 and 32 characters!')
+            .contains('Address 1 must be between 3 and 128 characters!')
+            .contains('City must be between 3 and 128 characters!')
+            .contains('Password must be between 4 and 20 characters!')
+          })  
+
+        
         // it pass for postal code > 11
 
       })
@@ -251,12 +244,13 @@ it('Validation for Register with invalid data. ( Ascii characters, invalid email
         cy.get('#loginFrm_loginname').should('have.class', 'form-control').type('IulianPinzaru∞')
         cy.get('#loginFrm_password').should('have.class', 'form-control').type('12345678')
         cy.get('#loginFrm > fieldset > button').contains('Login').click()
-        
-        if(cy.get('.alert'))
-        {
-            cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
-            .contains('Error: Incorrect login or password provided.')
-        }
+    
+
+        cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
+        .then(()=>{
+          cy.contains('Error: Incorrect login or password provided.')
+        })
+    
     
     
       })
@@ -269,11 +263,10 @@ it('Validation for Register with invalid data. ( Ascii characters, invalid email
         cy.get('#loginFrm_password').should('have.class', 'form-control').type('12345678')
         cy.get('#loginFrm > fieldset > button').contains('Login').click()
     
-        if(cy.get('.alert'))
-        {
-            cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
-            .contains('Error: Incorrect login or password provided.')
-        }
+        cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
+        .then(()=>{
+          cy.contains('Error: Incorrect login or password provided.')
+        })
     
       })
       
@@ -285,11 +278,10 @@ it('Validation for Register with invalid data. ( Ascii characters, invalid email
         cy.get('#loginFrm_password').should('have.class', 'form-control').type('123456789')
         cy.get('#loginFrm > fieldset > button').contains('Login').click()
     
-        if(cy.get('.alert'))
-        {
-            cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
-            .contains('Error: Incorrect login or password provided.')
-        }
+        cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
+        .then(()=>{
+          cy.contains('Error: Incorrect login or password provided.')
+        })
     
       })
     
@@ -300,11 +292,10 @@ it('Validation for Register with invalid data. ( Ascii characters, invalid email
         // Tryin' to connect all data empty.
         cy.get('#loginFrm > fieldset > button').contains('Login').click()
     
-        if(cy.get('.alert'))
-        {
-            cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
-            .contains('Error: Incorrect login or password provided.')
-        }
+        cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
+        .then(()=>{
+          cy.contains('Error: Incorrect login or password provided.')
+        })
     
       })
     
@@ -316,11 +307,11 @@ it('Validation for Register with invalid data. ( Ascii characters, invalid email
         cy.get('#loginFrm_password').should('have.class', 'form-control').type('123456781')
         cy.get('#loginFrm > fieldset > button').contains('Login').click()
     
-        if(cy.get('.alert'))
-        {
-            cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
-            .contains('Error: Incorrect login or password provided.')
-        }
+        cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
+        .then(()=>{
+          cy.contains('Error: Incorrect login or password provided.')
+        })
+
       })
 
 

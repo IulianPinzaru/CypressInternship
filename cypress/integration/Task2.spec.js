@@ -1,3 +1,4 @@
+export var nume;
 describe('Write cypress tests for registered customers',()=>{
         
   beforeEach(() =>{
@@ -15,7 +16,7 @@ describe('Write cypress tests for registered customers',()=>{
       }
   })
 
-it('Update account details',()=>{
+it.skip('Update account details',()=>{
 
   cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(3) > a')
       .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/edit').contains('Edit account details').click()
@@ -29,6 +30,7 @@ it('Update account details',()=>{
 
   //Adding new data.
   cy.get('#AccountFrm_firstname').should('have.class', 'form-control').type('Iulian')
+  nume = cy.get('#AccountFrm_firstname').should('have.class', 'form-control');
   cy.get('#AccountFrm_lastname').should('have.class', 'form-control').type('Pinzaru')
   cy.get('#AccountFrm_email').should('have.class', 'form-control').type('iulian.pinzaru@yahoo.com')
   cy.get('#AccountFrm_telephone').should('have.class', 'form-control').type('0787878765')
@@ -53,7 +55,7 @@ it('Update account details',()=>{
     
 
 })
-  it('Updating address book',() =>{
+  it.skip('Updating address book',() =>{
 
     cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(5) > a')
       .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/address').click()
@@ -108,7 +110,7 @@ it('Update account details',()=>{
 
   })
 
-  it('Wishlist', () =>{
+  it.skip('Wishlist', () =>{
     cy.get('#categorymenu > nav > ul > li:nth-child(6) > a').should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=product/category&path=58')
       .click()
 
@@ -175,7 +177,7 @@ it('Update account details',()=>{
 
   })
 
-  it('Purchase',() =>{
+  it.skip('Purchase',() =>{
 
     //Addin' items to chart
 
@@ -187,7 +189,7 @@ it('Update account details',()=>{
     {
       cy.get('#maincontainer > div > div > div > div > div.thumbnails.grid.row.list-inline > div:nth-child(2) > div.fixed_wrapper > div > a')
         .click()
-      cy.get('#option352').select('EU S (Asia L)  (16 In Stock)').should('have.value', '779')
+      cy.get('#option352').select('779').should('have.value', '779')
       cy.get('#product > fieldset > div:nth-child(5) > ul > li > a').contains('Add to Cart').click()
 
     }
@@ -229,21 +231,17 @@ it('Update account details',()=>{
 
     //verify if items are have been added correctly.
 
-    if(cy.get('#cart > div > div.container-fluid.cart-info.product-list > table > tbody > tr:nth-child(2) > td:nth-child(2) > a')
-      .contains('Product with options and stock locations'))
-      {
-        cy.log('First Item added corectly')
-      }
-    if(cy.get('#cart > div > div.container-fluid.cart-info.product-list > table > tbody > tr:nth-child(3) > td:nth-child(2) > a')
-      .contains('Delicate Oil-Free Powder Blush'))
-      {
-        cy.log('Second item added correctly')
-      }
-    if(cy.get('#cart > div > div.container-fluid.cart-info.product-list > table > tbody > tr:nth-child(4) > td:nth-child(2) > a')
-      .contains('Seaweed Conditioner'))
-      {
-        cy.log('Third item added correctly')
-      }
+    cy.get('#cart > div > div.container-fluid.cart-info.product-list > table > tbody > tr')
+    .each(()=>{
+      cy.contains('Product with options and stock locations')
+      cy.contains('Delicate Oil-Free Powder Blush')
+      cy.contains('Seaweed Conditioner')
+      return false
+    })
+      
+      
+     
+      
     
     //Update Quantity
 
@@ -285,3 +283,4 @@ it('Update account details',()=>{
 
 
 })
+
