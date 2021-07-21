@@ -16,7 +16,7 @@ describe('Write cypress tests for registered customers',()=>{
       }
   })
 
-it.skip('Update account details',()=>{
+it('Update account details',()=>{
 
   cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(3) > a')
       .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/edit').contains('Edit account details').click()
@@ -55,7 +55,7 @@ it.skip('Update account details',()=>{
     
 
 })
-  it.skip('Updating address book',() =>{
+  it('Updating address book',() =>{
 
     cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(5) > a')
       .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/address').click()
@@ -76,14 +76,13 @@ it.skip('Update account details',()=>{
     cy.get('#AddressFrm_default1').should('have.value', '1').click()
     cy.get('#AddressFrm > div > fieldset > div:nth-child(11) > div > button').contains('Continue').click()
 
-    if(cy.get('.alert'))
-    {
+    
       cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > div.alert.alert-success')
-        .contains('Your address has been successfully inserted')
-    }
-    else{
-      cy.log('It should be an alert here.')
-    }
+      .then(()=>{
+        cy.contains('Your address has been successfully inserted')
+      })
+    
+    
 
     //verify if the old address exists.
     cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > div.contentpanel > div:nth-child(2) > table > tbody > tr > td:nth-child(1) > address')
@@ -110,7 +109,7 @@ it.skip('Update account details',()=>{
 
   })
 
-  it.skip('Wishlist', () =>{
+  it('Wishlist', () =>{
     cy.get('#categorymenu > nav > ul > li:nth-child(6) > a').should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=product/category&path=58')
       .click()
 
@@ -177,7 +176,7 @@ it.skip('Update account details',()=>{
 
   })
 
-  it.skip('Purchase',() =>{
+  it('Purchase',() =>{
 
     //Addin' items to chart
 
@@ -234,8 +233,8 @@ it.skip('Update account details',()=>{
     cy.get('#cart > div > div.container-fluid.cart-info.product-list > table > tbody > tr')
     .each(()=>{
       cy.contains('Product with options and stock locations')
-      cy.contains('Delicate Oil-Free Powder Blush')
       cy.contains('Seaweed Conditioner')
+      cy.contains('Delicate Oil-Free Powder Blush')
       return false
     })
       
