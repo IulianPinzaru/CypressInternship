@@ -15,19 +15,7 @@ describe('Write cypress tests for registered customers',()=>{
       }
   })
 
-it.skip('Update account details',()=>{
-//Login
-  cy.get("#customer_menu_top")
-  .click()
-
-  cy.get('#loginFrm_loginname').should('have.class', 'form-control').type('IulianPinzaru')
-  cy.get('#loginFrm_password').should('have.class', 'form-control').type('12345678')
-  cy.get('#loginFrm > fieldset > button').contains('Login').click()
-
-  if(cy.get('#customer_menu_top > li > a > div').contains('Iulian'))
-      {
-        cy.log('Login Succesful')
-      }
+it('Update account details',()=>{
 
   cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(3) > a')
       .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/edit').contains('Edit account details').click()
@@ -65,7 +53,7 @@ it.skip('Update account details',()=>{
     
 
 })
-  it.skip('Updating address book',() =>{
+  it('Updating address book',() =>{
 
     cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(5) > a')
       .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/address').click()
@@ -76,7 +64,7 @@ it.skip('Update account details',()=>{
     cy.get('#AddressFrm_firstname').should('have.class', 'form-control').type('Iulian')
     cy.get('#AddressFrm_lastname').should('have.class', 'form-control').type('Pinzaru')
     cy.get('#AddressFrm_company').should('have.class', 'form-control').type('SC TEST2 SRL')
-    cy.get('#AddressFrm_address_1').should('have.class', 'form-control').type('Str Tipografiei 2')
+    cy.get('#AddressFrm_address_1').should('have.class', 'form-control').type('Str Tipografiei 1')
     cy.get('#AddressFrm_country_id').should('have.class', 'form-control')
       .select('Romania').should('have.value', '175')
     cy.get('#AddressFrm_zone_id').should('have.class', 'form-control')
@@ -95,22 +83,32 @@ it.skip('Update account details',()=>{
       cy.log('It should be an alert here.')
     }
 
-    
-    //verify if the old adress exists
+    //verify if the old address exists.
     cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > div.contentpanel > div:nth-child(2) > table > tbody > tr > td:nth-child(1) > address')
-    .contains('Iulian Pinzaru')
-    .contains('SC TEST2 SRL')
-    .contains('Str Tipografiei 2')
-    .contains('Radauti 725400')
-    .contains('Suceava')
-    .contains('Romania')
-    // Deleting the old adress
+      .contains('Iulian Pinzaru')
+      .contains('SC TEST2 SRL')
+      .contains('Str Tipografiei 2')
+      .contains('Radauti 725400')
+      .contains('Suceava')
+      .contains('Romania')
+
+    //verify if the new address is correct
+    cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > div.contentpanel > div:nth-child(3) > table > tbody > tr > td:nth-child(1) > address')
+      .contains('Iulian Pinzaru')
+      .contains('SC TEST2 SRL')
+      .contains('Str Tipografiei 1')
+      .contains('Radauti 725400')
+      .contains('Suceava')
+      .contains('Romania')
+    
+      // Deleting the old adress
+    
     cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > div.contentpanel > div:nth-child(2) > table > tbody > tr > td.pull-right > button.btn.btn-default')
       .contains('Delete').click()
 
   })
 
-  it.skip('Wishlist', () =>{
+  it('Wishlist', () =>{
     cy.get('#categorymenu > nav > ul > li:nth-child(6) > a').should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=product/category&path=58')
       .click()
 
@@ -189,6 +187,7 @@ it.skip('Update account details',()=>{
     {
       cy.get('#maincontainer > div > div > div > div > div.thumbnails.grid.row.list-inline > div:nth-child(2) > div.fixed_wrapper > div > a')
         .click()
+      cy.get('#option352').select('EU S (Asia L)  (16 In Stock)').should('have.value', '779')
       cy.get('#product > fieldset > div:nth-child(5) > ul > li > a').contains('Add to Cart').click()
 
     }
@@ -221,19 +220,42 @@ it.skip('Update account details',()=>{
       .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=product/category&path=65_67')
       .click({force: true})
 
-    if(cy.get('#maincontainer > div > div > div > div > div.thumbnails.grid.row.list-inline > div:nth-child(2) > div.fixed_wrapper > div > a'))
+    if(cy.get('#maincontainer > div > div > div > div > div.thumbnails.grid.row.list-inline > div:nth-child(3) > div.fixed_wrapper > div > a'))
     {
-      cy.get('#maincontainer > div > div > div > div > div.thumbnails.grid.row.list-inline > div:nth-child(2) > div.fixed_wrapper > div > a')
+      cy.get('#maincontainer > div > div > div > div > div.thumbnails.grid.row.list-inline > div:nth-child(3) > div.fixed_wrapper > div > a')
       .click()
-      cy.get('#product > fieldset > div:nth-child(5) > ul > li > a > i  ').click({force : true})
-      
+      cy.get('#product > fieldset > div:nth-child(4) > ul > li > a').should('have.class', 'cart').click({force : true})
     }
 
+    //verify if items are have been added correctly.
+
+    if(cy.get('#cart > div > div.container-fluid.cart-info.product-list > table > tbody > tr:nth-child(2) > td:nth-child(2) > a')
+      .contains('Product with options and stock locations'))
+      {
+        cy.log('First Item added corectly')
+      }
+    if(cy.get('#cart > div > div.container-fluid.cart-info.product-list > table > tbody > tr:nth-child(3) > td:nth-child(2) > a')
+      .contains('Delicate Oil-Free Powder Blush'))
+      {
+        cy.log('Second item added correctly')
+      }
+    if(cy.get('#cart > div > div.container-fluid.cart-info.product-list > table > tbody > tr:nth-child(4) > td:nth-child(2) > a')
+      .contains('Seaweed Conditioner'))
+      {
+        cy.log('Third item added correctly')
+      }
+    
     //Update Quantity
 
     cy.get('#cart_quantity6938bdb8d5c9261879ee00cec3c444c9fa').clear()
     cy.get('#cart_quantity6938bdb8d5c9261879ee00cec3c444c9fa').type('2')
+
     cy.get('#cart_update').click()
+
+    if(cy.get('#cart_quantity6938bdb8d5c9261879ee00cec3c444c9fa').should('have.value', '2'))
+    {
+      cy.log('Quantity updated.')
+    }
     
 
     //verify the address
