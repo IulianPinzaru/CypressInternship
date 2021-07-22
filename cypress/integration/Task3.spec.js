@@ -38,7 +38,7 @@ describe('Register and Login functionality', () => {
 
     })
 
-    it.only('Brand selection and sorting', ()=>{
+    it('Brand selection and sorting', ()=>{
         cy.get('#brandcarousal > li:nth-child(1) > div.image > a > img').click()
         cy.get('#sort').select('p.price-ASC')
         cy.get(':nth-child(1) > .fixed_wrapper > .fixed > .prdocutname').contains('BeneFit Girl Meets Pearl')
