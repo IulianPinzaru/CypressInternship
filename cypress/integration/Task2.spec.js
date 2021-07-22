@@ -55,7 +55,7 @@ it('Update account details',()=>{
     
 
 })
-  it('Updating address book',() =>{
+  it.only('Updating address book',() =>{
 
     cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(5) > a')
       .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/address').click()
@@ -85,26 +85,33 @@ it('Update account details',()=>{
     
 
     //verify if the old address exists.
-    cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > div.contentpanel > div:nth-child(2) > table > tbody > tr > td:nth-child(1) > address')
-      .contains('Iulian Pinzaru')
-      .contains('SC TEST2 SRL')
-      .contains('Str Tipografiei 2')
-      .contains('Radauti 725400')
-      .contains('Suceava')
-      .contains('Romania')
+    cy.get('.contentpanel').invoke('text')
+      .then((text) =>{
+        text.split(' ')
+        expect(text).to.include('Iulian Pinzaru')
+        expect(text).to.include('SC TEST2 SRL')
+        expect(text).to.include('Str Tipografiei 2')
+        expect(text).to.include('Radauti 725400')
+        expect(text).to.include('Suceava')
+        expect(text).to.include('Romania')
+    })
+    //:nth-child(3) > table > tbody > tr > :nth-child(1) > address
+      
 
     //verify if the new address is correct
-    cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > div.contentpanel > div:nth-child(3) > table > tbody > tr > td:nth-child(1) > address')
-      .contains('Iulian Pinzaru')
-      .contains('SC TEST2 SRL')
-      .contains('Str Tipografiei 1')
-      .contains('Radauti 725400')
-      .contains('Suceava')
-      .contains('Romania')
+    cy.get('.contentpanel').invoke('text')
+    .then((text2) =>{
+      expect(text2).to.include('Iulian Pinzaru')
+      expect(text2).to.include('SC TEST2 SRL')
+      expect(text2).to.include('Str Tipografiei 1')
+      expect(text2).to.include('Radauti 725400')
+      expect(text2).to.include('Suceava')
+      expect(text2).to.include('Romania')
+  })
     
       // Deleting the old adress
     
-    cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > div.contentpanel > div:nth-child(2) > table > tbody > tr > td.pull-right > button.btn.btn-default')
+    cy.get('button.btn.btn-default')
       .contains('Delete').click()
 
   })
