@@ -1,12 +1,12 @@
 var search = 'CURLS TO STRAIGHT SHAMPOO';
-var orderid, email;
+var orderid, email, i, str = [];
 describe('Register and Login functionality', () => {
     beforeEach(() => {
       
       cy.visit('https://automationteststore.com/')
     })
 
-    it('Search an Item', ()=>{
+    it.only('Search an Item', ()=>{
         //Search
         cy.get('#filter_keyword').type(search).type('{enter}')
         //Add item
@@ -26,13 +26,14 @@ describe('Register and Login functionality', () => {
         //check order status
         cy.get('#maincontainer > div > div > div > div > section > p:nth-child(4) > a').contains('invoice page').click()
 
-        cy.get('#maincontainer > div > div > div > div > div:nth-child(1) > table > tbody > tr > td:nth-child(1) > br:nth-child(2)')
-        .should(($el) => {
-            const orderid = $el.text()
+        cy.get('.contentpanel > :nth-child(1) > .table > tbody > tr > :nth-child(1)').invoke('text')
+        .then((text) => {
+            cy.log(text)
+            str = text.split(' ')
+            cy.log(str)
+            
         })
-        cy.log(orderid) // Object{5}
-        //email = cy.get('#maincontainer > div > div > div > div > div:nth-child(1) > table > tbody > tr > td:nth-child(1) > br:nth-child(10)').text()
-        cy.log(email)
+
     })
 
     it('Brand selection and sorting', ()=>{
@@ -66,4 +67,23 @@ function Adddata(name, lastname, email, teleph, fax, company, address, city, zip
     cy.get('#guestFrm_country_id').select('Romania').should('have.value','175')
     cy.get('#guestFrm_zone_id').select('Suceava').should('have.value', '2714')
     cy.get('#guestFrm_postcode').type(zip)
+}
+
+function catchstr(text)
+{
+    var str;
+    for(let i = 0; i< text.lenght; i++)
+    {
+        if(i == '#')
+        {
+            while(i != ' ')
+            {
+                str = text.slice(i,i+1)
+                i+=1;
+            }
+        }
+    }
+    cy.log(str)
+    text = str
+    return text;
 }
