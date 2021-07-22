@@ -32,11 +32,23 @@ describe('Register and Login functionality', () => {
             orderid = orderid.trim() 
             email = text.substring(text.indexOf('E-Mail')+'E-Mail'.length, text.indexOf('Telephone'))
             email = email.trim()
+            
             cy.log(orderid)
             cy.log(email)
-        })
 
-    })
+            cy.get('#topnav > select').select('https://automationteststore.com/index.php?rt=account/invoice')
+            cy.get('#CheckOrderFrm_order_id').type(String(orderid))
+            cy.get('#CheckOrderFrm_email').type(String(email))
+            cy.get('#CheckOrderFrm > div > fieldset > div:nth-child(3) > div > button').contains('Continue').click()
+            
+            cy.get('.contentpanel > :nth-child(1) > .table > tbody > tr > :nth-child(1)').invoke('text')
+            .should((text)=>{
+                expect(text).to.include(String(orderid))
+                expect(text).to.include(String(email))
+            })
+        })
+        
+})
 
     it('Brand selection and sorting', ()=>{
         cy.get('#brandcarousal > li:nth-child(1) > div.image > a > img').click()
