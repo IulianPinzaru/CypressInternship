@@ -55,7 +55,7 @@ it('Update account details',()=>{
     
 
 })
-  it.only('Updating address book',() =>{
+  it('Updating address book',() =>{
 
     cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(5) > a')
       .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/address').click()
