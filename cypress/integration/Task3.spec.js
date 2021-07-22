@@ -1,5 +1,7 @@
+
 var search = 'CURLS TO STRAIGHT SHAMPOO';
 var orderid = [], email, i, str = [];
+
 describe('Register and Login functionality', () => {
     beforeEach(() => {
       
@@ -8,7 +10,14 @@ describe('Register and Login functionality', () => {
 
     it('Search an Item', ()=>{
         //Search
+        cy.get('#filter_keyword').type('nothing').type('{enter}')
+        cy.get('#maincontainer > div > div > div > h1 > span.maintext').contains('Search')
+        cy.get('#keyword').should('have.value', 'nothing')
+        cy.get('#maincontainer > div > div > div > div > h4:nth-child(3)').contains('Products meeting the search criteria')
+
         cy.get('#filter_keyword').type(search).type('{enter}')
+        cy.get('#product_details > div > div:nth-child(2) > div > div > h1 > span').contains('Curls to straight Shampoo')
+
         //Add item
         cy.get('#product > fieldset > div:nth-child(4) > ul > li > a').contains("Add to Cart").click()
         //verify if it is the correct item.
