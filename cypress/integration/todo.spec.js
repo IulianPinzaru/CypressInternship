@@ -1,5 +1,5 @@
 import nume from './Task2.spec.js'
-describe('Register and Login functionality', () => {
+describe('Tests and validations for registering and login of customers', () => {
   beforeEach(() => {
     
     cy.visit('https://automationteststore.com/')
@@ -20,7 +20,7 @@ describe('Register and Login functionality', () => {
         cy.get('#AccountFrm_telephone').should('have.class', 'form-control').type('0769662763')
         cy.get('#AccountFrm_fax').should('have.class', 'form-control').type('-')
         cy.get('#AccountFrm_company').should('have.class', 'form-control').type('SC TEST SRL')
-        cy.get('#AccountFrm_address_1').should('have.class', 'form-control').type('STR Tipografiei 1')
+        cy.get('#AccountFrm_address_1').should('have.class', 'form-control').type('STR Tipografiei 2')
         cy.get('#AccountFrm_address_2').should('have.class', 'form-control').type('-')
         cy.get('#AccountFrm_city').should('have.class', 'form-control').type('Radauti')
   

@@ -2,7 +2,7 @@
 var search = 'CURLS TO STRAIGHT SHAMPOO';
 var orderid = [], email, i, str = [];
 
-describe('Register and Login functionality', () => {
+describe('Tests and validations for unregistered customers', () => {
     beforeEach(() => {
       
       cy.visit('https://automationteststore.com/')

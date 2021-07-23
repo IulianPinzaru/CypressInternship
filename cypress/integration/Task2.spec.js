@@ -195,7 +195,7 @@ it('Update account details',()=>{
     {
       cy.get('#maincontainer > div > div > div > div > div.thumbnails.grid.row.list-inline > div:nth-child(2) > div.fixed_wrapper > div > a')
         .click()
-      cy.get('#option352').select('779').should('have.value', '779')
+      cy.get('#option352').select('780').should('have.value', '780')
       cy.get('#product > fieldset > div:nth-child(5) > ul > li > a').contains('Add to Cart').click()
 
     }
