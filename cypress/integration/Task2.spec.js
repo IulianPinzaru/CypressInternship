@@ -1,13 +1,14 @@
-export var nume;
-describe('Write cypress tests for registered customers',()=>{
+import * as jsarray from "./date.json"
+
+describe('Tests for registered customers',()=>{
         
   beforeEach(() =>{
     cy.visit('https://automationteststore.com/')
     cy.get("#customer_menu_top")
   .click()
 
-  cy.get('#loginFrm_loginname').should('have.class', 'form-control').type('IulianPinzaru')
-  cy.get('#loginFrm_password').should('have.class', 'form-control').type('12345678')
+  cy.get('#loginFrm_loginname').should('have.class', 'form-control').type(jsarray.loginname)
+  cy.get('#loginFrm_password').should('have.class', 'form-control').type(jsarray.password)
   cy.get('#loginFrm > fieldset > button').contains('Login').click()
 
   if(cy.get('#customer_menu_top > li > a > div').contains('Iulian'))
@@ -30,7 +31,6 @@ it('Update account details',()=>{
 
   //Adding new data.
   cy.get('#AccountFrm_firstname').should('have.class', 'form-control').type('Iulian')
-  nume = cy.get('#AccountFrm_firstname').should('have.class', 'form-control');
   cy.get('#AccountFrm_lastname').should('have.class', 'form-control').type('Pinzaru')
   cy.get('#AccountFrm_email').should('have.class', 'form-control').type('iulian.pinzaru@yahoo.com')
   cy.get('#AccountFrm_telephone').should('have.class', 'form-control').type('0787878765')

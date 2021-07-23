@@ -1,4 +1,6 @@
-import nume from './Task2.spec.js'
+import { Login, register, slider } from "./POM.spec.js"
+import * as jsarray from './date.json'
+
 describe('Tests and validations for registering and login of customers', () => {
   beforeEach(() => {
     
@@ -12,32 +14,33 @@ describe('Tests and validations for registering and login of customers', () => {
       
         cy.get("#accountFrm > fieldset > button")
         .contains("Continue").click()
-  
+        
         //Adding data
-        cy.get("#AccountFrm_firstname").should('have.class', 'form-control').type('Pinzaru')
-        cy.get('#AccountFrm_lastname').should('have.class', 'form-control').type('Iulian')
-        cy.get('#AccountFrm_email').should('have.class', 'form-control').type('iulipinzaru@gmail.com')
-        cy.get('#AccountFrm_telephone').should('have.class', 'form-control').type('0769662763')
-        cy.get('#AccountFrm_fax').should('have.class', 'form-control').type('-')
-        cy.get('#AccountFrm_company').should('have.class', 'form-control').type('SC TEST SRL')
-        cy.get('#AccountFrm_address_1').should('have.class', 'form-control').type('STR Tipografiei 2')
-        cy.get('#AccountFrm_address_2').should('have.class', 'form-control').type('-')
-        cy.get('#AccountFrm_city').should('have.class', 'form-control').type('Radauti')
+        register.firstname().should('have.class', 'form-control').type(jsarray.firstname)
+        register.lastname().should('have.class', 'form-control').type(jsarray.lastname)
+        register.email().should('have.class', 'form-control').type(jsarray.email)
+        register.telephone().should('have.class', 'form-control').type(jsarray.telephone)
+        register.fax().should('have.class', 'form-control').type(jsarray.fax)
+        register.company().should('have.class', 'form-control').type(jsarray.company)
+        register.address1().should('have.class', 'form-control').type(jsarray.address1)
+        register.address2().should('have.class', 'form-control').type(jsarray.address2)
+        register.city().should('have.class', 'form-control').type(jsarray.city)
   
-        cy.get('#AccountFrm_country_id').should('have.class', 'form-control')
+        register.country().should('have.class', 'form-control')
           .select('Romania').should('have.value','175')
-        cy.get('#AccountFrm_zone_id').should('have.class', 'form-control')
+        register.zone().should('have.class', 'form-control')
           .select('Suceava').should('have.value', '2714')
   
-        cy.get('#AccountFrm_postcode').should('have.class', 'form-control').type('725400')
-        cy.get('#AccountFrm_loginname').should('have.class', 'form-control').type('IulianPinzaru')
-        cy.get('#AccountFrm_password').should('have.class', 'form-control').type('12345678')
-        cy.get('#AccountFrm_confirm').should('have.class', 'form-control').type('12345678')
-        cy.get('#AccountFrm_newsletter1').should('have.value', '1').click()
-        cy.get('#AccountFrm_agree').should('have.value', '1').click()
-        cy.get('#AccountFrm > div.form-group > div > div > button').contains('Continue').click()
+        register.postalcode().should('have.class', 'form-control').type(jsarray.postalcode)
+        register.loginname().should('have.class', 'form-control').type(jsarray.loginname)
+        register.password().should('have.class', 'form-control').type(jsarray.password)
+        register.confirmpassword().should('have.class', 'form-control').type(jsarray.confirmpassword)
+        register.newsletter().should('have.value', '1').click()
+        register.agree().should('have.value', '1').click()
+        Login.selectbutton().contains('Continue').click()
 
-        cy.get('#maincontainer > div > div > div > div.alert.alert-error.alert-danger')
+        
+        register.alert()
         .then(()=>{
           cy.contains('This login name is not available. Try different login name!')
         })
@@ -45,17 +48,14 @@ describe('Tests and validations for registering and login of customers', () => {
   })
 
     it('Login', () => {
-      cy.get("#customer_menu_top")
-      .click()
 
-      cy.get('#loginFrm_loginname').should('have.class', 'form-control').type('IulianPinzaru')
-      cy.get('#loginFrm_password').should('have.class', 'form-control').type('12345678')
-      cy.get('#loginFrm > fieldset > button').contains('Login').click()
+      Login.customermenu().click()
 
-      if(cy.get('#customer_menu_top > li > a > div').contains('Iulian'))
-      {
-        cy.log('Login Succesful')
-      }
+      Login.enterloginname().should('have.class', 'form-control').type(jsarray.loginname)
+      Login.enterpassword().should('have.class', 'form-control').type(jsarray.password)
+      Login.selectbutton().contains('Login').click()
+      //validation
+      cy.get('#customer_menu_top > li > a > div').contains('Iulian')
 
     })
 

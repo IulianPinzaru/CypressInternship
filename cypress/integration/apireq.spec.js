@@ -8,7 +8,7 @@ describe('API Request', ()=>{
     it('Api Request', ()=>{
         cy.request('https://petstore.swagger.io/v2/store/inventory').then((res) =>{
             
-        expect(res).to.have.property('status', 200)
+            expect(res).to.have.property('status', 200)
             expect(res.body).to.not.be.null
 
             Object.entries(res.body).forEach(element =>{

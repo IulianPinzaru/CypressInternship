@@ -124,7 +124,7 @@ function Adddata(name, lastname, email, teleph, fax, company, address, city, zip
     cy.get('#guestFrm_address_1').type(address)
     cy.get('#guestFrm_city').type(city)
     cy.get('#guestFrm_country_id').select('Romania').should('have.value','175')
-    cy.get('#guestFrm_zone_id').select('Suceava').should('have.value', '2714')
+    cy.get('#guestFrm_zone_id',{timeout: 10000}).select('Suceava').should('have.value', '2714')
     cy.get('#guestFrm_postcode').type(zip)
 }
 
