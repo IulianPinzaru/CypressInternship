@@ -1,5 +1,5 @@
-import { register, Login, slider } from "./POM.spec.js"
-import * as jsarray from "./date.json"
+import { register, Login, slider } from "../support/POM/POM.spec"
+import * as jsarray from "../fixtures/date.json"
 
 describe('My own tests',()=>{
 

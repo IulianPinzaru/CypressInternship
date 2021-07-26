@@ -1,3 +1,5 @@
+import { register, Login, slider } from "../support/POM/POM.spec"
+import * as jsarray from "../fixtures/date.json"
 
 var search = 'CURLS TO STRAIGHT SHAMPOO';
 var orderid = [], email, i, str = [];
@@ -113,42 +115,42 @@ describe('Tests and validations for unregistered customers', () => {
     })
 })
 
-function Adddata(name, lastname, email, teleph, fax, company, address, city, zip)
-{
-    cy.get('#guestFrm_firstname').type(name)
-    cy.get('#guestFrm_lastname').type(lastname)
-    cy.get('#guestFrm_email').type(email)
-    cy.get('#guestFrm_telephone').type(teleph)
-    cy.get('#guestFrm_fax').type(fax)
-    cy.get('#guestFrm_company').type(company)
-    cy.get('#guestFrm_address_1').type(address)
-    cy.get('#guestFrm_city').type(city)
-    cy.get('#guestFrm_country_id').select('Romania').should('have.value','175')
-    cy.get('#guestFrm_zone_id',{timeout: 10000}).select('Suceava').should('have.value', '2714')
-    cy.get('#guestFrm_postcode').type(zip)
-}
-
-function verifysort(str)
-{
-    for(let i=0;i<str.length;i++)
+    function Adddata(name, lastname, email, teleph, fax, company, address, city, zip)
     {
-        str[i] = parseFloat(str[i])
+        cy.get('#guestFrm_firstname').type(name)
+        cy.get('#guestFrm_lastname').type(lastname)
+        cy.get('#guestFrm_email').type(email)
+        cy.get('#guestFrm_telephone').type(teleph)
+        cy.get('#guestFrm_fax').type(fax)
+        cy.get('#guestFrm_company').type(company)
+        cy.get('#guestFrm_address_1').type(address)
+        cy.get('#guestFrm_city').type(city)
+        cy.get('#guestFrm_country_id').select('Romania').should('have.value','175')
+        cy.get('#guestFrm_zone_id',{timeout: 10000}).select('Suceava').should('have.value', '2714')
+        cy.get('#guestFrm_postcode').type(zip)
     }
-    for(let i = 0; i< str.length;i++)
+
+    function verifysort(str)
+    {
+        for(let i=0;i<str.length;i++)
         {
-            let ok = 0
-            if(str[i] < str[i+1] && i != str.length-1)
-            {
-                ok=1
-            }
-            else
-            {
-                cy.log('Elements are not sorted in the right way.')
-                break;
-            }
-            if(i == str.length-1 && ok == 1)
-            {
-                cy.log('Elements are sorted in the right way.')
-            }
+            str[i] = parseFloat(str[i])
         }
-}
+        for(let i = 0; i< str.length;i++)
+            {
+                let ok = 0
+                if(str[i] < str[i+1] && i != str.length-1)
+                {
+                    ok=1
+                }
+                else
+                {
+                    cy.log('Elements are not sorted in the right way.')
+                    break;
+                }
+                if(i == str.length-1 && ok == 1)
+                {
+                    cy.log('Elements are sorted in the right way.')
+                }
+            }
+    }

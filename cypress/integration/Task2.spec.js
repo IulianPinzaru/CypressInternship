@@ -1,4 +1,5 @@
-import * as jsarray from "./date.json"
+import { register, Login, slider } from "../support/POM/POM.spec"
+import * as jsarray from "../fixtures/date.json"
 
 describe('Tests for registered customers',()=>{
         
@@ -17,44 +18,45 @@ describe('Tests for registered customers',()=>{
       }
   })
 
-it('Update account details',()=>{
+  it('Update account details',()=>{
 
-  cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(3) > a')
-      .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/edit').contains('Edit account details').click()
+    cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(3) > a')
+        .should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/edit').contains('Edit account details').click()
 
-  //clearing old data from fields.
-  cy.get('#AccountFrm_firstname').should('have.class', 'form-control').clear()
-  cy.get('#AccountFrm_lastname').should('have.class', 'form-control').clear()
-  cy.get('#AccountFrm_email').should('have.class', 'form-control').clear()
-  cy.get('#AccountFrm_telephone').should('have.class', 'form-control').clear()
-  cy.get('#AccountFrm_fax').should('have.class', 'form-control').clear()
+    //clearing old data from fields.
+    cy.get('#AccountFrm_firstname').should('have.class', 'form-control').clear()
+    cy.get('#AccountFrm_lastname').should('have.class', 'form-control').clear()
+    cy.get('#AccountFrm_email').should('have.class', 'form-control').clear()
+    cy.get('#AccountFrm_telephone').should('have.class', 'form-control').clear()
+    cy.get('#AccountFrm_fax').should('have.class', 'form-control').clear()
 
-  //Adding new data.
-  cy.get('#AccountFrm_firstname').should('have.class', 'form-control').type('Iulian')
-  cy.get('#AccountFrm_lastname').should('have.class', 'form-control').type('Pinzaru')
-  cy.get('#AccountFrm_email').should('have.class', 'form-control').type('iulian.pinzaru@yahoo.com')
-  cy.get('#AccountFrm_telephone').should('have.class', 'form-control').type('0787878765')
-  cy.get('#AccountFrm_fax').should('have.class', 'form-control').type('0769663763')
+    //Adding new data.
+    cy.get('#AccountFrm_firstname').should('have.class', 'form-control').type('Iulian')
+    cy.get('#AccountFrm_lastname').should('have.class', 'form-control').type('Pinzaru')
+    cy.get('#AccountFrm_email').should('have.class', 'form-control').type('iulian.pinzaru@yahoo.com')
+    cy.get('#AccountFrm_telephone').should('have.class', 'form-control').type('0787878765')
+    cy.get('#AccountFrm_fax').should('have.class', 'form-control').type('0769663763')
 
-  //Continue
+    //Continue
 
-  cy.get('#AccountFrm > div.form-group > div > button').contains('Continue').click()
+    cy.get('#AccountFrm > div.form-group > div > button').contains('Continue').click()
 
-    if(cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > h1 > span.subtext').contains('Iulian'))
-      {
-        cy.log('Account updated succesfull!')
+      if(cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > h1 > span.subtext').contains('Iulian'))
+        {
+          cy.log('Account updated succesfull!')
+        }
+
+      if(cy.get('.alert')){
+        cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > div.alert.alert-success')
+        .contains('Success: Your account has been successfully updated.')
       }
+      else{
+        cy.log('It should be an Alert here.')
+      }
+      
 
-    if(cy.get('.alert')){
-      cy.get('#maincontainer > div > div.col-md-9.col-xs-12.mt20 > div > div.alert.alert-success')
-      .contains('Success: Your account has been successfully updated.')
-    }
-    else{
-      cy.log('It should be an Alert here.')
-    }
-    
+  })
 
-})
   it('Updating address book',() =>{
 
     cy.get('#maincontainer > div > div.column_right.col-md-3.col-xs-12.mt20 > div.sidewidt > div > ul > li:nth-child(5) > a')
@@ -95,7 +97,7 @@ it('Update account details',()=>{
         expect(text).to.include('Suceava')
         expect(text).to.include('Romania')
     })
-    //:nth-child(3) > table > tbody > tr > :nth-child(1) > address
+   
       
 
     //verify if the new address is correct
